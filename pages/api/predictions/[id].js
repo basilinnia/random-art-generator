@@ -6,6 +6,7 @@ export default async function handler(req, res) {
             },
         }
     )
+
     if (response.status !== 200) {
         let error = await response.json();
         res.statusCode = 500;

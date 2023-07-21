@@ -5,7 +5,7 @@ export default function Home() {
   const initialPrompt = generate(10).toString().trim(",");
   const [promptValue, setPromptValue] = useState(initialPrompt);
   const [negativePrompt, setNegativePrompt] = useState("");
-  const [stylePrompt, setStylePrompt] = useState(""); // New state for "style" prompt
+  const [stylePrompt, setStylePrompt] = useState("");
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
 
@@ -19,7 +19,7 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt: promptValue, negative_prompt, style: stylePrompt }), // Include style prompt in the request
+      body: JSON.stringify({ prompt: promptValue + stylePrompt, negative_prompt }),
     });
 
     let prediction = await response.json();
@@ -45,40 +45,58 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-500 py-6 flex flex-col justify-center">
-      <form className="flex flex-col w-full" onSubmit={onSubmit}>
-        <p>{promptValue}</p> {/* Display the prompt value */}
-        <div className="flex flex-col w-full items-center">
-          <label htmlFor="prompt">Prompt</label>
-          <textarea
-            name="prompt"
-            className="border-gray-900 p-2"
-            value={promptValue}
-            onChange={(e) => setPromptValue(e.target.value)}
-          ></textarea>
+    <div className="min-h-screen bg-gradient-to-r from-blue-300 to-purple-500 py-6 flex flex-col justify-center items-center">
+      <div className="w-full max-w-sm bg-white shadow-md rounded p-4">
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="prompt">
+            Prompt
+          </label>
+          <p className="bg-gray-200 rounded px-2 py-1 text-center">{promptValue}</p>
         </div>
-        <div className="flex flex-col w-full items-center">
-          <label htmlFor="negative_prompt">Negative Prompt</label>
-          <textarea
-            name="negative_prompt"
-            className="border-gray-900 p-2"
-            value={negativePrompt}
-            onChange={(e) => setNegativePrompt(e.target.value)}
-          ></textarea>
-        </div>
-        <div className="flex flex-col w-full items-center">
-          <label htmlFor="style">Style Prompt</label>
-          <textarea
-            name="style"
-            className="border-gray-900 p-2 text-blue-500" // Add a different color style to the textarea
-            value={stylePrompt}
-            onChange={(e) => setStylePrompt(e.target.value)} // Update the state when the textarea value changes
-          ></textarea>
-        </div>
-        <button type="submit">GENERATE</button>
-      </form>
+        <form onSubmit={onSubmit}>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="prompt">
+              Prompt
+            </label>
+            <textarea
+              name="prompt"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={promptValue}
+              onChange={(e) => setPromptValue(e.target.value)}
+            ></textarea>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="negative_prompt">
+              Negative Prompt
+            </label>
+            <textarea
+              name="negative_prompt"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={negativePrompt}
+              onChange={(e) => setNegativePrompt(e.target.value)}
+            ></textarea>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="style">
+              Style Prompt
+            </label>
+            <textarea
+              name="style"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-blue-500 leading-tight focus:outline-none focus:shadow-outline"
+              value={stylePrompt}
+              onChange={(e) => setStylePrompt(e.target.value)}
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+          >
+            GENERATE
+          </button>
+        </form>
+      </div>
       {prediction && (
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="bg-white shadow-md rounded p-4 mt-4">
           {prediction.output && (
             <div className="grid grid-cols-2 gap-4">
               {prediction.output.map((imgSrc, index) => (
@@ -93,7 +111,7 @@ export default function Home() {
               ))}
             </div>
           )}
-          <p className="text-center text-gray-700 font-bold">Status: {prediction.status}</p>
+          <p className="text-center text-gray-700 font-bold mt-4">Status: {prediction.status}</p>
         </div>
       )}
     </div>
