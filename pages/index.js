@@ -45,7 +45,6 @@ export default function Home() {
   };
 
   return (
-
     <div className="min-h-screen bg-gradient-to-r from-blue-300 to-purple-500 py-6 flex flex-col justify-center items-center">
               <div className="mb-4">
             Initial Prompts
