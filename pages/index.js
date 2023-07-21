@@ -78,22 +78,40 @@ export default function Home() {
         <button type="submit">GENERATE</button>
       </form>
       {prediction && (
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="m-6">
           {prediction.output && (
-            <div className="grid grid-cols-2 gap-4">
-              {prediction.output.map((imgSrc, index) => (
-                <img
-                  key={index}
-                  src={imgSrc}
-                  alt={`output ${index + 1}`}
-                  width={340}
-                  height={340}
-                  className="rounded"
-                />
-              ))}
-            </div>
+            <>
+              <img
+                src={prediction.output[0]}
+                alt="output"
+                sizes="100vw"
+                width={340}
+                height={340}
+              />
+              <img
+                src={prediction.output[1]}
+                alt="output"
+                sizes="100vw"
+                width={340}
+                height={340}
+              />
+              <img
+                src={prediction.output[2]}
+                alt="output"
+                sizes="100vw"
+                width={340}
+                height={340}
+              />
+              <img
+                src={prediction.output[3]}
+                alt="output"
+                sizes="100vw"
+                width={340}
+                height={340}
+              />
+            </>
           )}
-          <p className="text-center text-gray-700 font-bold">Status: {prediction.status}</p>
+          <p>status: {prediction.status}</p>
         </div>
       )}
     </div>
