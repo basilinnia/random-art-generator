@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { generate } from "random-words";
-
 export default function Home() {
   const initialPrompt = generate(10).toString().trim(",");
   const [promptValue, setPromptValue] = useState(initialPrompt);
