@@ -45,14 +45,13 @@ export default function Home() {
   };
 
   return (
+
     <div className="min-h-screen bg-gradient-to-r from-blue-300 to-purple-500 py-6 flex flex-col justify-center items-center">
-      <div className="w-full max-w-sm bg-white shadow-md rounded p-4">
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="prompt">
-            Prompt
-          </label>
-          <p className="bg-gray-200 rounded px-2 py-1 text-center">{promptValue}</p>
+              <div className="mb-4">
+            Initial Prompts
+          <p className="bg-gray-200 rounded px-2 py-1 text-center">{initialPrompt}</p>
         </div>
+      <div className="w-full bg-white shadow-md rounded p-4 mx-20">
         <form onSubmit={onSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="prompt">
