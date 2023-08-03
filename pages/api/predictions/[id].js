@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
     const response = await fetch(`https://api.replicate.com/v1/predictions/${req.query.id}`, {
             headers: {
-                Authorization: `Token ${process.env.REPLICATE_API_KEY}`,
+                Authorization: `Token r8_HXqKLnRfdedWJFBjxiHNGmGTtziRRtl0ZdZGl`,
                 "Content-Type": "application/json",
             },
         }
